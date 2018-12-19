@@ -25,6 +25,9 @@ namespace justTest
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             password = password ?? data?.password;
+
+            if(password != null){
+
             StringBuilder inputStringBuild = new StringBuilder(password);  
             StringBuilder outputStringBuild = new StringBuilder(password.Length);  
             char Textch;  
@@ -39,6 +42,18 @@ namespace justTest
             return outputString != null
                 ? (ActionResult)new OkObjectResult("Output is " + outputString)
                 : new BadRequestObjectResult("Hey Something went wrong. ");
+
+            }
+
+            else{
+
+                return new BadRequestObjectResult("Please input a password to process");
+                
+            }
+
+
+
+
         }
     }
 }
